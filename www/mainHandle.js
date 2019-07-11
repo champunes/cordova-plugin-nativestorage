@@ -51,6 +51,10 @@ StorageHandle.prototype.initWithSuiteName = function(suiteName, success, error) 
   this.storageHandlerDelegate(success, error, "NativeStorage", "initWithSuiteName", [suiteName]);
 };
 
+StorageHandle.prototype.disableSuite = function(success, error) {
+  this.storageHandlerDelegate(success, error, "NativeStorage", "disableSuite", []);
+};
+
 StorageHandle.prototype.set = function(reference, value, success, error) {
 
   //if error is null then replace with empty function to silence warnings

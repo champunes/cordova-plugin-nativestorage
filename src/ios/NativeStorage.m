@@ -13,7 +13,7 @@
     [self.commandDelegate runInBackground:^{
         CDVPluginResult* pluginResult = nil;
         NSString* aSuiteName = [command.arguments objectAtIndex:0];
-        
+
         if(aSuiteName!=nil)
         {
             _suiteName = aSuiteName;
@@ -22,6 +22,19 @@
         else
         {
             pluginResult = [CDVPluginResult resultWithStatus: CDVCommandStatus_ERROR messageAsString:@"Reference or SuiteName was null"];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId: command.callbackId];
+    }];
+}
+
+- (void) disableSuite: (CDVInvokedUrlCommand*) command
+{
+    [self.commandDelegate runInBackground:^{
+        CDVPluginResult* pluginResult = nil;
+
+        if(_suiteName!=nil)
+        {
+            _suiteName = nil;
         }
         [self.commandDelegate sendPluginResult:pluginResult callbackId: command.callbackId];
     }];
@@ -251,9 +264,7 @@
 		{
 			NSUserDefaults *defaults = [self getUserDefault];
 			[defaults setObject: aString forKey:reference];
-			BOOL success = [defaults synchronize];
-			if(success) pluginResult = [CDVPluginResult resultWithStatus: CDVCommandStatus_OK messageAsString:aString];
-			else pluginResult = [CDVPluginResult resultWithStatus: CDVCommandStatus_ERROR messageAsInt:1]; //Write has failed
+			pluginResult = [CDVPluginResult resultWithStatus: CDVCommandStatus_OK messageAsString:aString];
 		}
 
 		[self.commandDelegate sendPluginResult:pluginResult callbackId: command.callbackId];

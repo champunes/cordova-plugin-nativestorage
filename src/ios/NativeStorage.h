@@ -3,6 +3,7 @@
 @interface NativeStorage : CDVPlugin
 
 - (void) initWithSuiteName: (CDVInvokedUrlCommand*) command;
+- (void) disableSuite: (CDVInvokedUrlCommand*) command;
 
 - (void) remove: (CDVInvokedUrlCommand*) command;
 - (void) clear: (CDVInvokedUrlCommand*) command;
